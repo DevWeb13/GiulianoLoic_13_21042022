@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
@@ -8,7 +9,13 @@ import reportWebVitals from "./reportWebVitals";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Home />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/user/login" element={<SignIn />} />
+        {/* <Route path="*" element={<Error />} /> */}
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 
