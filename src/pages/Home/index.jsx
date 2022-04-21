@@ -1,20 +1,22 @@
+import { Link } from "react-router-dom";
+
 function Home() {
   return (
     <div className="Home">
       <nav className="main-nav">
-        <a className="main-nav-logo" href="./index.html">
+        <Link className="main-nav-logo" to="./user/login">
           <img
             className="main-nav-logo-image"
             src="./img/argentBankLogo.png"
             alt="Argent Bank Logo"
           />
           <h1 className="sr-only">Argent Bank</h1>
-        </a>
+        </Link>
         <div>
-          <a className="main-nav-item" href="./sign-in.html">
+          <Link className="main-nav-item" to="./user/login">
             <i className="fa fa-user-circle"></i>
             Sign In
-          </a>
+          </Link>
         </div>
       </nav>
       <main>
