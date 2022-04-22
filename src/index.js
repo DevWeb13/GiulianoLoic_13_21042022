@@ -13,8 +13,8 @@ root.render(
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/user/login" element={<SignIn />} />
-        <Route path="/user/:id" element={<User />} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/user" element={<User />} />
 
         {/* <Route path="*" element={<Error />} /> */}
       </Routes>
