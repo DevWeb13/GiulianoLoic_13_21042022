@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./index.css";
-import Home from "./pages/Home";
-import SignIn from "./pages/SignIn";
-import User from "./pages/User";
+import Home from "./pages/Home/Home";
+import SignIn from "./pages/SignIn/SignIn";
+import User from "./pages/User/User";
 import { Provider } from "react-redux";
 import store from "./utils/store";
 
