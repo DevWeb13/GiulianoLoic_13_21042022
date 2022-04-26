@@ -30,6 +30,8 @@ function SignIn() {
         dispatch(apiResponseLogin(res));
         dispatch(userLogin({ email, password }));
         localStorage.setItem("token", res.body.token);
+        setEmail("");
+        setPassword("");
       }
     } catch (error) {
       console.log(error);
