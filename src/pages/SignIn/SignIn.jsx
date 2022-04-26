@@ -29,7 +29,7 @@ function SignIn() {
       } else {
         dispatch(apiResponseLogin(res));
         dispatch(userLogin({ email, password }));
-        localStorage.setItem("token", res.token);
+        localStorage.setItem("token", res.body.token);
       }
     } catch (error) {
       console.log(error);

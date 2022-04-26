@@ -1,10 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectLogin } from "../../features/login";
+import { useSelector, useDispatch } from "react-redux";
+import { selectLogin, userLogout } from "../../features/login";
+import { apiResponseLogout } from "../../features/apiResponse";
 
 function Header() {
   const user = useSelector(selectLogin);
+
+  const dispatch = useDispatch();
+
+  function signOut() {
+    localStorage.removeItem("token");
+    dispatch(userLogout());
+    dispatch(apiResponseLogout());
+  }
 
   return (
     <nav className="main-nav">
@@ -22,7 +31,7 @@ function Header() {
             <i className="fa fa-user-circle"></i>
             Tony
           </Link>
-          <Link className="main-nav-item" to="/">
+          <Link className="main-nav-item" to="/" onClick={() => signOut()}>
             <i className="fa fa-sign-out"></i>
             Sign Out
           </Link>
