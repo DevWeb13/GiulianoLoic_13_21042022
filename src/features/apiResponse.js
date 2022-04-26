@@ -9,7 +9,7 @@ export const apiResponseSlice = createSlice({
     apiResponseLogin: (state, action) => {
       state.apiResponse = action.payload;
     },
-    apiResponseLogout: (state, action) => {
+    apiResponseLogout: (state, _action) => {
       state.apiResponse = null;
     },
   },
