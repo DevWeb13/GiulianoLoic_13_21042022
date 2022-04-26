@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../features/login";
+import { apiResponseLogin } from "../../features/apiResponse";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -8,7 +9,7 @@ function SignIn() {
 
   const dispatch = useDispatch();
 
-  async function request() {
+  async function requestForLogin() {
     const requestHeaders = {
       method: "POST",
       headers: {
@@ -23,7 +24,7 @@ function SignIn() {
         requestHeaders
       );
       const apiResponse = await response.json();
-      console.log(apiResponse);
+      dispatch(apiResponseLogin(apiResponse));
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +32,7 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    request();
+    requestForLogin();
   };
 
   return (
