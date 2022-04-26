@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userLogin } from "../../features/login";
 import { apiResponseLogin } from "../../features/apiResponse";
 
@@ -23,17 +23,23 @@ function SignIn() {
         "http://localhost:3001/api/v1/user/login",
         requestHeaders
       );
-      const apiResponse = await response.json();
-      dispatch(apiResponseLogin(apiResponse));
+      const res = await response.json();
+      if (res.status !== 200) {
+        dispatch(apiResponseLogin(res));
+      } else {
+        dispatch(apiResponseLogin(res));
+        dispatch(userLogin({ email, password }));
+        localStorage.setItem("token", res.token);
+      }
     } catch (error) {
       console.log(error);
     }
   }
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
     requestForLogin();
-  };
+  }
 
   return (
     <div>
