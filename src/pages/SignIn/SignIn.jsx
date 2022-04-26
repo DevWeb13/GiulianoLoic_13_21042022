@@ -8,15 +8,30 @@ function SignIn() {
 
   const dispatch = useDispatch();
 
+  async function request() {
+    const requestHeaders = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    };
+    try {
+      const response = await fetch(
+        "http://localhost:3001/api/v1/user/login",
+        requestHeaders
+      );
+      const apiResponse = await response.json();
+      console.log(apiResponse);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    dispatch(
-      userLogin({
-        email,
-        password,
-      })
-    );
+    request();
   };
 
   return (
@@ -31,6 +46,7 @@ function SignIn() {
               <input
                 type="text"
                 id="username"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -39,6 +55,7 @@ function SignIn() {
               <input
                 type="password"
                 id="password"
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
