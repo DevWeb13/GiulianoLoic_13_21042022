@@ -1,8 +1,23 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../../features/login";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      userLogin({
+        email,
+        password,
+      })
+    );
+  };
 
   return (
     <div>
@@ -10,7 +25,7 @@ function SignIn() {
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
-          <form>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className="input-wrapper">
               <label htmlFor="username">Username</label>
               <input
@@ -32,7 +47,9 @@ function SignIn() {
               <label htmlFor="remember-me">Remember me</label>
             </div>
 
-            <button className="sign-in-button">Sign In</button>
+            <button type="submit" className="sign-in-button">
+              Sign In
+            </button>
           </form>
         </section>
       </main>
