@@ -17,6 +17,6 @@ export const apiResponseSlice = createSlice({
 
 export const { apiResponseLogin, apiResponseLogout } = apiResponseSlice.actions;
 
-export const selectApiResponse = (state) => state.apiResponse;
+export const selectApiResponse = (state) => state.apiResponse.apiResponse;
 
 export default apiResponseSlice.reducer;

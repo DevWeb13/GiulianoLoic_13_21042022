@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../features/login";
-import { apiResponseLogin } from "../../features/apiResponse";
+import {
+  apiResponseLogin,
+  selectApiResponse,
+} from "../../features/apiResponse";
 import { useNavigate } from "react-router-dom";
 
 function SignIn() {
@@ -10,9 +13,32 @@ function SignIn() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const apiResponse = useSelector(selectApiResponse);
+  if (apiResponse !== null) {
+    console.log(apiResponse.body.token);
+  }
+
+  async function requestForProfile(token) {
+    const requestForProfileHeaders = {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await fetch(
+        "http://localhost:3001/api/v1/user/profile",
+        requestForProfileHeaders
+      );
+      const res = await response.json();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function requestForLogin() {
-    const requestHeaders = {
+    const requestForLoginHeaders = {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -23,7 +49,7 @@ function SignIn() {
     try {
       const response = await fetch(
         "http://localhost:3001/api/v1/user/login",
-        requestHeaders
+        requestForLoginHeaders
       );
       const res = await response.json();
       if (res.status !== 200) {
@@ -35,6 +61,7 @@ function SignIn() {
         setEmail("");
         setPassword("");
         navigate("/user");
+        requestForProfile(res.body.token);
       }
     } catch (error) {
       console.log(error);
