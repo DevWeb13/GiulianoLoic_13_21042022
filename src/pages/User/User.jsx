@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectProfile } from "../../features/profile";
 
 function User() {
+  const profile = useSelector(selectProfile);
   return (
     <div>
       <main className="main bg-dark">
@@ -8,7 +11,7 @@ function User() {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {`${profile.body.firstName} ${profile.body.lastName}`}!
           </h1>
           <button className="edit-button">Edit Name</button>
         </div>
