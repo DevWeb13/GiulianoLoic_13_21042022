@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../features/login";
 import { apiResponseLogin } from "../../features/apiResponse";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   async function requestForLogin() {
     const requestHeaders = {
@@ -32,6 +34,7 @@ function SignIn() {
         localStorage.setItem("token", res.body.token);
         setEmail("");
         setPassword("");
+        navigate("/user");
       }
     } catch (error) {
       console.log(error);
