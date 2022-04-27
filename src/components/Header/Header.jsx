@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectLogin, userLogout } from "../../features/login";
 import { apiResponseLogout } from "../../features/apiResponse";
+import { profileLogout } from "../../features/profile";
 
 function Header() {
   const user = useSelector(selectLogin);
@@ -13,6 +14,7 @@ function Header() {
     localStorage.removeItem("token");
     dispatch(userLogout());
     dispatch(apiResponseLogout());
+    dispatch(profileLogout());
   }
 
   return (
