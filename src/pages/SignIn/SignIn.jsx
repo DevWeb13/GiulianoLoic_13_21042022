@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userLogin } from "../../features/login";
-import {
-  apiResponseLogin,
-  selectApiResponse,
-} from "../../features/apiResponse";
+import { apiResponseLogin } from "../../features/apiResponse";
+import { profileLogin } from "../../features/profile";
 import { useNavigate } from "react-router-dom";
 
 function SignIn() {
@@ -13,10 +11,6 @@ function SignIn() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const apiResponse = useSelector(selectApiResponse);
-  if (apiResponse !== null) {
-    console.log(apiResponse.body.token);
-  }
 
   async function requestForProfile(token) {
     const requestForProfileHeaders = {
@@ -31,7 +25,7 @@ function SignIn() {
         requestForProfileHeaders
       );
       const res = await response.json();
-      console.log(res);
+      dispatch(profileLogin(res));
     } catch (error) {
       console.log(error);
     }
