@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectLogin, userLogout } from "../../features/login";
 import { apiResponseLogout } from "../../features/apiResponse";
-import { profileLogout } from "../../features/profile";
+import { profileLogout, selectProfile } from "../../features/profile";
 
 function Header() {
-  const user = useSelector(selectLogin);
+  const profile = useSelector(selectProfile);
 
   const dispatch = useDispatch();
 
@@ -27,11 +27,11 @@ function Header() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      {user ? (
+      {profile ? (
         <div>
           <Link className="main-nav-item" to="/user">
             <i className="fa fa-user-circle"></i>
-            Tony
+            {`${profile.body.firstName}`}
           </Link>
           <Link className="main-nav-item" to="/" onClick={() => signOut()}>
             <i className="fa fa-sign-out"></i>
