@@ -206,6 +206,10 @@ body {
   font-size: 1.2rem;
 }
 
+.errorInfo{
+  color: red;
+height: 0;}
+
 .footer {
   display: flex;
   justify-content: center;

@@ -9,6 +9,7 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (localStorage.login) {
@@ -70,17 +71,12 @@ function SignIn() {
       const res = await response.json();
       if (res.status !== 200) {
         dispatch(apiResponseLogin(res));
+        setError(true);
       } else {
         dispatch(apiResponseLogin(res));
         dispatch(userLogin({ email, password }));
         requestForProfile(res.body.token);
         remenberMe();
-        // if (checked) {
-        //   localStorage.setItem("login", JSON.stringify({ email, password }));
-        // }
-        // localStorage.setItem("token", res.body.token);
-        // setEmail("");
-        // setPassword("");
         navigate("/user");
       }
     } catch (error) {
@@ -127,7 +123,7 @@ function SignIn() {
               />
               <label htmlFor="remember-me">Remember me</label>
             </div>
-
+            {error && <div className="errorInfo">Invalid data</div>}
             <button type="submit" className="sign-in-button">
               Sign In
             </button>
