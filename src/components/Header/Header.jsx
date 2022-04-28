@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectLogin, userLogout } from "../../features/login";
+import { userLogout } from "../../features/login";
 import { apiResponseLogout } from "../../features/apiResponse";
 import { profileLogout, selectProfile } from "../../features/profile";
 
@@ -11,7 +11,6 @@ function Header() {
   const dispatch = useDispatch();
 
   function signOut() {
-    localStorage.removeItem("token");
     dispatch(userLogout());
     dispatch(apiResponseLogout());
     dispatch(profileLogout());
