@@ -9,7 +9,7 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
-  const [error, setError] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     if (localStorage.login) {
@@ -71,7 +71,7 @@ function SignIn() {
       const res = await response.json();
       if (res.status !== 200) {
         dispatch(apiResponseLogin(res));
-        setError(true);
+        setIsError(true);
       } else {
         dispatch(apiResponseLogin(res));
         dispatch(userLogin({ email, password }));
@@ -123,7 +123,7 @@ function SignIn() {
               />
               <label htmlFor="remember-me">Remember me</label>
             </div>
-            {error && <div className="errorInfo">Invalid data</div>}
+            {isError && <div className="errorInfo">Invalid data</div>}
             <button type="submit" className="sign-in-button">
               Sign In
             </button>
