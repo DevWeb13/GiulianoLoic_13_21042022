@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../features/login";
 import { apiResponseLogin } from "../../features/apiResponse";
@@ -8,6 +8,28 @@ import { useNavigate } from "react-router-dom";
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.login) {
+      let localStorageLogin = JSON.parse(localStorage.login);
+      setEmail(localStorageLogin.email);
+      setPassword(localStorageLogin.password);
+      setChecked(true);
+    }
+  }, []);
+
+  const handleCheckbox = (e) => {
+    setChecked(e.target.checked);
+  };
+
+  function remenberMe() {
+    if (checked) {
+      localStorage.setItem("login", JSON.stringify({ email, password }));
+    } else {
+      localStorage.removeItem("login");
+    }
+  }
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,11 +73,15 @@ function SignIn() {
       } else {
         dispatch(apiResponseLogin(res));
         dispatch(userLogin({ email, password }));
-        localStorage.setItem("token", res.body.token);
-        setEmail("");
-        setPassword("");
-        navigate("/user");
         requestForProfile(res.body.token);
+        remenberMe();
+        // if (checked) {
+        //   localStorage.setItem("login", JSON.stringify({ email, password }));
+        // }
+        // localStorage.setItem("token", res.body.token);
+        // setEmail("");
+        // setPassword("");
+        navigate("/user");
       }
     } catch (error) {
       console.log(error);
@@ -93,7 +119,12 @@ function SignIn() {
               />
             </div>
             <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
+              <input
+                {...{ checked }}
+                onChange={handleCheckbox}
+                type="checkbox"
+                id="remember-me"
+              />
               <label htmlFor="remember-me">Remember me</label>
             </div>
 
