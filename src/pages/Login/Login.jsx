@@ -8,7 +8,7 @@ import {
 } from "../../features/user";
 import { selectUser } from "../../utils/selectors";
 
-function SignIn() {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,7 +20,7 @@ function SignIn() {
 
   useEffect(() => {
     if (user.token) {
-      navigate("/user");
+      navigate("/profile");
     }
   }, [navigate, user.token]);
 
@@ -28,22 +28,18 @@ function SignIn() {
     rememberMe(store);
   };
 
-  async function handleSubmit(e) {
+  async function loginSubmit(e) {
     e.preventDefault();
     const token = await fetchOrUpdateToken(store, email, password);
     fetchOrUpdateData(store, token);
   }
-
-  // if (user.token) {
-  //   navigate("/user");
-  // }
 
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={(e) => loginSubmit(e)}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
             <input
@@ -81,4 +77,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Login;

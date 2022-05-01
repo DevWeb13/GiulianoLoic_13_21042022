@@ -19,6 +19,7 @@ const TOKENREJECTED = "user/tokenRejected";
 const DATAREJECTED = "user/dataRejected";
 const LOGOUT = "user/logout";
 const REMEMBER = "user/remember";
+const EDITPROFILE = "user/editProfile";
 
 const userTokenFetching = () => ({ type: TOKENFETCHING });
 const userDataFetching = () => ({ type: DATAFETCHING });
@@ -36,6 +37,10 @@ const userLogout = () => ({ type: LOGOUT });
 const userRememberMe = (rememberMe) => ({
   type: REMEMBER,
   payload: rememberMe,
+});
+const userEditProfile = (firstName, lastName) => ({
+  type: EDITPROFILE,
+  payload: { firstName, lastName },
 });
 
 export async function fetchOrUpdateToken(store, email, password) {
@@ -64,7 +69,6 @@ export async function fetchOrUpdateToken(store, email, password) {
       localStorage.setItem("token", res.body.token);
       sessionStorage.setItem("token", res.body.token);
     }
-
     return res.body.token;
   } catch (error) {
     store.dispatch(userTokenRejected(error));
@@ -99,26 +103,46 @@ export async function fetchOrUpdateData(store, token) {
   }
 }
 
-export async function checkStorageToken(store) {
+export function checkStorageToken(store) {
   const token =
-    (await localStorage.getItem("token")) || sessionStorage.getItem("token");
+    localStorage.getItem("token") || sessionStorage.getItem("token");
   if (token) {
     store.dispatch(userTokenFetching());
     store.dispatch(userTokenResolved(token));
-    return token;
+    fetchOrUpdateData(store, token);
   }
-  return null;
 }
 
 export function signOut(store) {
   store.dispatch(userLogout());
-
   localStorage.removeItem("token");
   sessionStorage.removeItem("token");
 }
 
 export function rememberMe(store) {
   store.dispatch(userRememberMe());
+}
+
+export async function editProfile(store, firstName, lastName, token) {
+  const optionsEditProfile = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ firstName, lastName }),
+  };
+  try {
+    const response = await fetch(
+      "http://localhost:3001/api/v1/user/profile",
+      optionsEditProfile
+    );
+    const res = await response.json();
+    console.log(res);
+    store.dispatch(userEditProfile(firstName, lastName));
+  } catch (error) {
+    store.dispatch(userDataRejected(error));
+  }
 }
 
 export default function userReducer(state = initialState, action) {
@@ -214,6 +238,11 @@ export default function userReducer(state = initialState, action) {
       }
       case REMEMBER: {
         draft.rememberMe = !draft.rememberMe;
+        return;
+      }
+      case EDITPROFILE: {
+        draft.data.firstName = action.payload.firstName;
+        draft.data.lastName = action.payload.lastName;
         return;
       }
 

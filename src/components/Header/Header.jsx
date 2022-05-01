@@ -14,11 +14,7 @@ function Header() {
   const user = useSelector(selectUser);
 
   useEffect(() => {
-    async function checkIfToken() {
-      const token = await checkStorageToken(store);
-      fetchOrUpdateData(store, token);
-    }
-    checkIfToken();
+    checkStorageToken(store);
   }, [store]);
 
   return (
@@ -33,7 +29,7 @@ function Header() {
       </Link>
       {user.data ? (
         <div>
-          <Link className="main-nav-item" to="/user">
+          <Link className="main-nav-item" to="/profile">
             <i className="fa fa-user-circle"></i>
             {`${user.data.firstName}`}
           </Link>

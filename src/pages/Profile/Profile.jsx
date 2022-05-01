@@ -1,12 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../utils/selectors";
 import Loader from "../../components/Loader/Loader";
 
 import { Link } from "react-router-dom";
 
-function User() {
+function Profile() {
   const user = useSelector(selectUser);
+  const navigate = useNavigate();
 
   if (user.dataStatus === "pending" || user.tokenStatus === "pending") {
     return <Loader />;
@@ -20,7 +22,9 @@ function User() {
           <br />
           {`${user.data.firstName} ${user.data.lastName}`}!
         </h1>
-        <button className="edit-button">Edit Name</button>
+        <button className="edit-button" onClick={() => navigate("/edit-name")}>
+          Edit Name
+        </button>
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
@@ -64,4 +68,4 @@ function User() {
   );
 }
 
-export default User;
+export default Profile;
