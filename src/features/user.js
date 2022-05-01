@@ -18,7 +18,7 @@ const DATARESOLVED = "user/dataResolved";
 const TOKENREJECTED = "user/tokenRejected";
 const DATAREJECTED = "user/dataRejected";
 const LOGOUT = "user/logout";
-const REMEMBER = "user/rememberMe";
+const REMEMBER = "user/remember";
 
 const userTokenFetching = () => ({ type: TOKENFETCHING });
 const userDataFetching = () => ({ type: DATAFETCHING });
