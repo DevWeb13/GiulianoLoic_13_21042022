@@ -40,7 +40,7 @@ const userRememberMe = (rememberMe) => ({
 
 export async function fetchOrUpdateToken(store, email, password) {
   const tokenStatus = selectUser(store.getState()).tokenStatus;
-  const rememberMe = selectUser(store.getState()).rememberMe;
+  const rememberMeValue = selectUser(store.getState()).rememberMe;
   if (tokenStatus === "pending" || tokenStatus === "updating") {
     return;
   }
@@ -60,7 +60,7 @@ export async function fetchOrUpdateToken(store, email, password) {
     );
     const res = await response.json();
     store.dispatch(userTokenResolved(res.body.token));
-    if (rememberMe) {
+    if (rememberMeValue) {
       localStorage.setItem("token", res.body.token);
       sessionStorage.setItem("token", res.body.token);
     }
