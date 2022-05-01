@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { userLogout } from "../../features/login";
-import { apiResponseLogout } from "../../features/apiResponse";
-import { profileLogout, selectProfile } from "../../features/profile";
+import { useSelector, useStore } from "react-redux";
+import {
+  signOut,
+  checkStorageToken,
+  fetchOrUpdateData,
+} from "../../features/user";
+import { selectUser } from "../../utils/selectors";
 
 function Header() {
-  const profile = useSelector(selectProfile);
+  const store = useStore();
 
-  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
-  function signOut() {
-    dispatch(userLogout());
-    dispatch(apiResponseLogout());
-    dispatch(profileLogout());
-  }
+  useEffect(() => {
+    async function checkIfToken() {
+      const token = await checkStorageToken(store);
+      fetchOrUpdateData(store, token);
+    }
+    checkIfToken();
+  }, [store]);
 
   return (
     <nav className="main-nav">
@@ -26,13 +31,13 @@ function Header() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      {profile ? (
+      {user.data ? (
         <div>
           <Link className="main-nav-item" to="/user">
             <i className="fa fa-user-circle"></i>
-            {`${profile.body.firstName}`}
+            {`${user.data.firstName}`}
           </Link>
-          <Link className="main-nav-item" to="/" onClick={() => signOut()}>
+          <Link className="main-nav-item" to="/" onClick={() => signOut(store)}>
             <i className="fa fa-sign-out"></i>
             Sign Out
           </Link>
