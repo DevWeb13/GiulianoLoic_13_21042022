@@ -18,7 +18,7 @@ const DATARESOLVED = "user/dataResolved";
 const TOKENREJECTED = "user/tokenRejected";
 const DATAREJECTED = "user/dataRejected";
 const LOGOUT = "user/logout";
-const REMEMBERME = "user/rememberMe";
+const REMEMBER = "user/rememberMe";
 
 const userTokenFetching = () => ({ type: TOKENFETCHING });
 const userDataFetching = () => ({ type: DATAFETCHING });
@@ -34,7 +34,7 @@ const userDataRejected = (dataError) => ({
 });
 const userLogout = () => ({ type: LOGOUT });
 const userRememberMe = (rememberMe) => ({
-  type: REMEMBERME,
+  type: REMEMBER,
   payload: rememberMe,
 });
 
@@ -212,7 +212,7 @@ export default function userReducer(state = initialState, action) {
         draft.rememberMe = false;
         return;
       }
-      case REMEMBERME: {
+      case REMEMBER: {
         draft.rememberMe = !draft.rememberMe;
         return;
       }
