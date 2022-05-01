@@ -193,15 +193,11 @@ export default function userReducer(state = initialState, action) {
       }
       case DATARESOLVED: {
         if (draft.dataStatus === "pending" || draft.dataStatus === "updating") {
-          if (
-            draft.dataStatus === "pending" ||
-            draft.dataStatus === "updating"
-          ) {
-            draft.dataStatus = "resolved";
-            draft.data = action.payload;
-            return;
-          }
+          draft.dataStatus = "resolved";
+          draft.data = action.payload;
+          return;
         }
+
         return;
       }
 

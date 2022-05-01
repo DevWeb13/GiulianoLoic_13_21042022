@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useStore } from "react-redux";
-import {
-  signOut,
-  checkStorageToken,
-  fetchOrUpdateData,
-} from "../../features/user";
+import { signOut, checkStorageToken } from "../../features/user";
 import { selectUser } from "../../utils/selectors";
 
 function Header() {
