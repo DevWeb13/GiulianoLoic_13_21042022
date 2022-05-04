@@ -148,6 +148,10 @@ export async function fetchOrUpdateData(store, token) {
       requestForProfileHeaders
     );
     const res = await response.json();
+    if (res.message === "invalid token") {
+      signOut(store);
+      return;
+    }
     store.dispatch(userDataResolved(res.body));
   } catch (error) {
     store.dispatch(userDataRejected(error));
