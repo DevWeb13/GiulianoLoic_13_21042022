@@ -8,6 +8,10 @@ import {
 } from "../../features/user";
 import { selectUser } from "../../utils/selectors";
 
+/**
+ * It renders a form with two inputs, a checkbox and a button
+ * @returns A function that returns a component
+ */
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +32,9 @@ function Login() {
     rememberMe(store);
   };
 
+  /**
+   * @param {React.FormEvent<HTMLFormElement>} e
+   */
   async function loginSubmit(e) {
     e.preventDefault();
     const token = await fetchOrUpdateToken(store, email, password);
