@@ -35,7 +35,7 @@ export const userTokenFetching = () => ({ type: TOKENFETCHING });
 export const userDataFetching = () => ({ type: DATAFETCHING });
 /**
  * It returns an object with a type of TOKENRESOLVED and a payload of token
- * @param token - The token that is being passed to the reducer.
+ * @param {String} token - The token that is being passed to the reducer.
  */
 export const userTokenResolved = (token) => ({
   type: TOKENRESOLVED,
@@ -43,7 +43,7 @@ export const userTokenResolved = (token) => ({
 });
 /**
  * It returns an object with a type of DATARESOLVED and a payload of data
- * @param data - The data that is being passed to the reducer.
+ * @param {Object} data - The data that is being passed to the reducer.
  */
 export const userDataResolved = (data) => ({
   type: DATARESOLVED,
@@ -51,7 +51,7 @@ export const userDataResolved = (data) => ({
 });
 /**
  * It returns an object with a type of TOKENREJECTED and a payload of tokenError
- * @param tokenError - The error message that will be displayed to the user.
+ * @param {Object} tokenError - The error message that will be displayed to the user.
  */
 export const userTokenRejected = (tokenError) => ({
   type: TOKENREJECTED,
@@ -59,7 +59,7 @@ export const userTokenRejected = (tokenError) => ({
 });
 /**
  * It returns an object with a type of DATAREJECTED and a payload of dataError
- * @param dataError - The error message that will be displayed to the user.
+ * @param {Object} dataError - The error message that will be displayed to the user.
  */
 export const userDataRejected = (dataError) => ({
   type: DATAREJECTED,
@@ -77,8 +77,8 @@ export const userRememberMe = () => ({
 });
 /**
  * It returns an object with a type property and a payload property
- * @param firstName - The first name of the user.
- * @param lastName - The last name of the user.
+ * @param {String} firstName - The first name of the user.
+ * @param {String} lastName - The last name of the user.
  */
 export const userEditProfile = (firstName, lastName) => ({
   type: EDITPROFILE,
@@ -88,10 +88,18 @@ export const userEditProfile = (firstName, lastName) => ({
 /**
  * It will receive all the data use for the user
  * @function :  dataReducer
- * @param {object} state:contain initial and final state of data
- * @param {object} action:return the action object
+ * @param {Object} state:contain initial and final state of data
+ * @param {Object} action:return the action object
+ * @return {Object} state:return the final state of data
  */
 export default function userReducer(state = initialState, action) {
+  /**
+   * It will return the final state of data
+   *
+   * @param   {Object}  state  - The initial state of the data.
+   * @param   {Object}  draft  - The draft of the data.
+   * @return  {Object}         - The final state of the data.
+   */
   return produce(state, (draft) => {
     switch (action.type) {
       case TOKENFETCHING: {
