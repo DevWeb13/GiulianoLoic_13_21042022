@@ -1,3 +1,30 @@
+![Logo of the project](https://github.com/DevWeb13/giulianoloic_13_21042022/blob/master/public/img/argentBankLogo.png)
+
+# ArgentBank
+
+> Bank application.
+
+Creation of a web application allowing customers to log in and manage their accounts and profile.
+
+## Project Realized By Giuliano Loic
+
+## Made With
+
+![JavaScript](https://img.shields.io/badge/Language-JS-yellow) ![REACT](https://img.shields.io/badge/Framework-React-blue) ![CSS](https://img.shields.io/badge/style-CSS-yellow) ![Vercel](https://img.shields.io/badge/Deploy-Vercel-black) ![Redux](https://img.shields.io/badge/Library-Redux-blueviolet)  ![Immer](https://img.shields.io/badge/Library-Immer-blueviolet) ![IDE](https://img.shields.io/badge/IDE-VsCode-blue) ![NODE](https://img.shields.io/badge/Node-v16.13.0-ff69b4)
+
+|                                                                                                              summary                                                                                                               |                                                                                                           score                                                                                                            |                                                                                                      to do                                                                                                      |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|              [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_GiulianoLoic_12_26022022&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=DevWeb13_GiulianoLoic_12_26022022)              |  [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_GiulianoLoic_12_26022022&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=DevWeb13_GiulianoLoic_12_26022022)  |  [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_GiulianoLoic_12_26022022&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=DevWeb13_GiulianoLoic_12_26022022)   |
+| [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_GiulianoLoic_12_26022022&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=DevWeb13_GiulianoLoic_12_26022022) | [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_GiulianoLoic_12_26022022&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=DevWeb13_GiulianoLoic_12_26022022) | [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_GiulianoLoic_12_26022022&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=DevWeb13_GiulianoLoic_12_26022022) |
+|                   [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_GiulianoLoic_12_26022022&metric=bugs)](https://sonarcloud.io/summary/new_code?id=DevWeb13_GiulianoLoic_12_26022022)                   |    [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_GiulianoLoic_12_26022022&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=DevWeb13_GiulianoLoic_12_26022022)    |                                                                                                                                                                                                                 |
+|        [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_GiulianoLoic_12_26022022&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=DevWeb13_GiulianoLoic_12_26022022)        |                                                                                                                                                                                                                            |
+
+## To start
+
+Clone the project, go to the project folder, install the dependencies by running the command
+
+### `npm install`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
