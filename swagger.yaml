@@ -58,7 +58,7 @@ paths:
         - application/json
       responses:
         '200':
-          description: User transactions retrieved successully
+          description: User transaction details retrieved successully
           schema:
             $ref: '#/definitions/TransactionDetails'
         '400':
