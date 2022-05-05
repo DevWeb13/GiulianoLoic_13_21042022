@@ -19,6 +19,8 @@ Creation of a web application allowing customers to log in and manage their acco
 |                   [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_giulianoloic_13_21042022&metric=bugs)](https://sonarcloud.io/summary/new_code?id=DevWeb13_giulianoloic_13_21042022)                   |    [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_giulianoloic_13_21042022&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=DevWeb13_giulianoloic_13_21042022)    |                                                                                                                                                                                                                 |
 |        [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=DevWeb13_giulianoloic_13_21042022&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=DevWeb13_giulianoloic_13_21042022)        |                                                                                                                                                                                                                            |
 
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=DevWeb13_giulianoloic_13_21042022)](https://sonarcloud.io/summary/new_code?id=DevWeb13_giulianoloic_13_21042022)
+
 ## To start
 
 Clone the project, go to the project folder, install the dependencies by running the command
