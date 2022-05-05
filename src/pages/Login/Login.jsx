@@ -5,7 +5,7 @@ import {
   fetchOrUpdateToken,
   fetchOrUpdateData,
   rememberMe,
-} from "../../features/user";
+} from "../../utils/dataManager";
 import { selectUser } from "../../utils/selectors";
 
 /**
@@ -33,7 +33,10 @@ function Login() {
   };
 
   /**
-   * @param {React.FormEvent<HTMLFormElement>} e
+   * A function that is called when the user clicks the login button. It prevents the default action of
+   * the button, which is to submit the form. It then calls the fetchOrUpdateToken function, which will
+   * either fetch a new token or update the existing token. It then calls the fetchOrUpdateData
+   * function, which will either fetch new data or update the existing data.
    */
   async function loginSubmit(e) {
     e.preventDefault();

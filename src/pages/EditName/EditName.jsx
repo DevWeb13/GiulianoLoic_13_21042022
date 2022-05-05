@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useStore } from "react-redux";
 import { selectUser } from "../../utils/selectors";
-import { editProfile } from "../../features/user";
+import { editProfile } from "../../utils/dataManager";
 import { useNavigate } from "react-router-dom";
 
 function EditName() {
