@@ -1,12 +1,25 @@
-import React from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useStore } from "react-redux";
 import { selectUser } from "../../utils/selectors";
 import Loader from "../../components/Loader/Loader";
+import { editProfile } from "../../utils/dataManager";
 
 function Profile() {
+  const [newFirstName, setNewFirstName] = useState("");
+  const [newLastName, setNewLastName] = useState("");
+  const [editName, setEditName] = useState(false);
+
+  const store = useStore();
+
   const user = useSelector(selectUser);
-  const navigate = useNavigate();
+
+  async function editNameSubmit(e) {
+    e.preventDefault();
+    const token = user.token;
+    editProfile(store, newFirstName, newLastName, token);
+    setEditName(false);
+  }
 
   if (user.dataStatus === "pending" || user.tokenStatus === "pending") {
     return <Loader />;
@@ -14,16 +27,69 @@ function Profile() {
 
   return user.data ? (
     <main className="main bg-dark">
-      <div className="header">
-        <h1>
-          Welcome back
-          <br />
-          {`${user.data.firstName} ${user.data.lastName}`}!
-        </h1>
-        <button className="edit-button" onClick={() => navigate("/edit-name")}>
-          Edit Name
-        </button>
-      </div>
+      {editName ? (
+        <div className="header editName-header">
+          <h1>Welcome back</h1>
+          <form onSubmit={(e) => editNameSubmit(e)} className="editName-form">
+            <div className="editName-input-container">
+              <div className="editName-wrapper">
+                <label htmlFor="newFirstName" className="editName-label">
+                  New firstname:{" "}
+                </label>
+                <input
+                  type="text"
+                  id="newFirstName"
+                  className="editName-input"
+                  // value={newFirstName}
+                  placeholder={user.data.firstName}
+                  onChange={(e) => setNewFirstName(e.target.value)}
+                />
+              </div>
+
+              <div className="editName-wrapper">
+                <label htmlFor="newLastName" className="editName-label">
+                  New lastname:{" "}
+                </label>
+                <input
+                  type="text"
+                  id="newLastName"
+                  className="editName-input"
+                  // value={newLastName}
+                  placeholder={user.data.lastName}
+                  onChange={(e) => setNewLastName(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="editName-buttons-container">
+              <button type="submit" className="editName-button">
+                Save
+              </button>
+              <button
+                type="button"
+                className="editName-button"
+                onClick={() => setEditName(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      ) : (
+        <div className="header">
+          <h1>
+            Welcome back
+            <br />
+            {`${user.data.firstName} ${user.data.lastName}`}!
+          </h1>
+          <button
+            className="edit-button"
+            onClick={() => setEditName(!editName)}
+          >
+            Edit Name
+          </button>
+        </div>
+      )}
+
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">

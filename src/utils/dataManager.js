@@ -79,7 +79,7 @@ export async function fetchOrUpdateData(store, token) {
       requestForProfileHeaders
     );
     const res = await response.json();
-    if (res.message === "invalid token") {
+    if (res.status === 401) {
       signOut(store);
       return;
     }
@@ -101,8 +101,8 @@ export function checkStorageToken(store) {
   if (token) {
     store.dispatch(userTokenFetching());
     store.dispatch(userTokenResolved(token));
-    store.dispatch(userRememberMe());
     fetchOrUpdateData(store, token);
+    store.dispatch(userRememberMe());
   }
 }
 

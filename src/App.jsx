@@ -5,7 +5,6 @@ import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
-import EditName from "./pages/EditName/EditName";
 
 function App() {
   return (
@@ -15,8 +14,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/edit-name" element={<EditName />} />
-
         {/* <Route path="*" element={<Error />} /> */}
       </Routes>
       <Footer />

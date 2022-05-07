@@ -11,7 +11,6 @@ function Header() {
 
   useEffect(() => {
     checkStorageToken(store);
-    console.log("test");
   }, [store]);
 
   return (
