@@ -14,11 +14,86 @@ function Profile() {
 
   const user = useSelector(selectUser);
 
-  async function editNameSubmit(e) {
+  /**
+   * The function is called when the user clicks the submit button on the edit name form. It prevents
+   * the default action of the submit button, gets the token from the user object, and calls the
+   * editProfile function with the new first and last name, and the token. It then sets the editName
+   * state to false, which closes the edit name form
+   * @param {React.FormEvent<HTMLFormElement>} e
+   */
+  function editNameSubmit(e) {
     e.preventDefault();
     const token = user.token;
     editProfile(store, newFirstName, newLastName, token);
     setEditName(false);
+  }
+
+  /**
+   * If the editName state is true, then return the editName form, otherwise return the welcome back
+   * header
+   * @returns A form that allows the user to edit their first and last name.
+   * @param {boolean} editName
+   */
+  function editNameForm(editName) {
+    return editName ? (
+      <div className="header editName-header">
+        <h1>Welcome back</h1>
+        <form onSubmit={(e) => editNameSubmit(e)} className="editName-form">
+          <div className="editName-input-container">
+            <div className="editName-wrapper">
+              <label htmlFor="newFirstName" className="editName-label">
+                New firstname:{" "}
+              </label>
+              <input
+                type="text"
+                id="newFirstName"
+                className="editName-input"
+                // value={newFirstName}
+                placeholder={user.data.firstName}
+                onChange={(e) => setNewFirstName(e.target.value)}
+              />
+            </div>
+
+            <div className="editName-wrapper">
+              <label htmlFor="newLastName" className="editName-label">
+                New lastname:{" "}
+              </label>
+              <input
+                type="text"
+                id="newLastName"
+                className="editName-input"
+                // value={newLastName}
+                placeholder={user.data.lastName}
+                onChange={(e) => setNewLastName(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="editName-buttons-container">
+            <button type="submit" className="editName-button">
+              Save
+            </button>
+            <button
+              type="button"
+              className="editName-button"
+              onClick={() => setEditName(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    ) : (
+      <div className="header">
+        <h1>
+          Welcome back
+          <br />
+          {`${user.data.firstName} ${user.data.lastName}`}!
+        </h1>
+        <button className="edit-button" onClick={() => setEditName(!editName)}>
+          Edit Name
+        </button>
+      </div>
+    );
   }
 
   if (user.dataStatus === "pending" || user.tokenStatus === "pending") {
@@ -27,69 +102,7 @@ function Profile() {
 
   return user.data ? (
     <main className="main bg-dark">
-      {editName ? (
-        <div className="header editName-header">
-          <h1>Welcome back</h1>
-          <form onSubmit={(e) => editNameSubmit(e)} className="editName-form">
-            <div className="editName-input-container">
-              <div className="editName-wrapper">
-                <label htmlFor="newFirstName" className="editName-label">
-                  New firstname:{" "}
-                </label>
-                <input
-                  type="text"
-                  id="newFirstName"
-                  className="editName-input"
-                  // value={newFirstName}
-                  placeholder={user.data.firstName}
-                  onChange={(e) => setNewFirstName(e.target.value)}
-                />
-              </div>
-
-              <div className="editName-wrapper">
-                <label htmlFor="newLastName" className="editName-label">
-                  New lastname:{" "}
-                </label>
-                <input
-                  type="text"
-                  id="newLastName"
-                  className="editName-input"
-                  // value={newLastName}
-                  placeholder={user.data.lastName}
-                  onChange={(e) => setNewLastName(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="editName-buttons-container">
-              <button type="submit" className="editName-button">
-                Save
-              </button>
-              <button
-                type="button"
-                className="editName-button"
-                onClick={() => setEditName(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
-      ) : (
-        <div className="header">
-          <h1>
-            Welcome back
-            <br />
-            {`${user.data.firstName} ${user.data.lastName}`}!
-          </h1>
-          <button
-            className="edit-button"
-            onClick={() => setEditName(!editName)}
-          >
-            Edit Name
-          </button>
-        </div>
-      )}
-
+      {editNameForm(editName)}
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">
