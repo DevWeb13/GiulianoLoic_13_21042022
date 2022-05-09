@@ -21,11 +21,67 @@ Creation of a web application allowing customers to log in and manage their acco
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=DevWeb13_giulianoloic_13_21042022)](https://sonarcloud.io/summary/new_code?id=DevWeb13_giulianoloic_13_21042022)
 
-## To start
+*Two repositories are needed to enable the project to run:*
 
-Clone the project, go to the project folder, install the dependencies by running the command
 
-### `npm install`
+## 1. BACK-END API
+
+You can get the API code here: <https://github.com/DevWeb13/Project-13-Bank-API-master>
+
+Please refer to the Readme.md documentation provided for installation and use.
+
+### URL/PORT
+
+The default URL used by the micro-API is <http://localhost:3001>.
+
+&nbsp;
+
+## 2. FRONT-END
+
+The present repository contains this part of the project. Any package manager such as npm or yarn is required.
+
+* You have to clone the project locally with either/or :
+
+```bash
+# HTTPS
+ git clone https://github.com/DevWeb13/GiulianoLoic_13_21042022
+# SSH
+git clone git@github.com:DevWeb13/GiulianoLoic_13_21042022.git
+```
+
+* Then access inside your local repository and install dependencies using :
+
+```bash
+npm install
+```
+
+* Launch the application with :
+
+```bash
+ npm start
+ ```
+
+### Use the application
+
+You can make use of the credentials below to access the application.
+It is also possible to create a new user, but consider the transactions page shall not to be filled as this is a in-course developpemnt application.
+
+Tony Stark
+
+    Email: tony@stark.com
+    Password: password123
+
+Steve Rogers
+
+    Email: steve@rogers.com,
+    Password: password456
+
+### URL/PORT
+
+The default URL used by the application is <http://localhost:3000>.
+
+&nbsp;
+
 
 # Getting Started with Create React App
 
