@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/Profile/Profile.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/Profile/Profile.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useStore } from "react-redux";
+import { selectUser } from "../../utils/selectors";
+import Loader from "../../components/Loader/Loader";
+import { editProfile } from "../../utils/dataManager";
+
+function Profile() {
+  const [newFirstName, setNewFirstName] = useState("");
+  const [newLastName, setNewLastName] = useState("");
+  const [editName, setEditName] = useState(false);
+
+  const store = useStore();
+
+  const user = useSelector(selectUser);
+
+  /**
+   * The function is called when the user clicks the submit button on the edit name form. It prevents
+   * the default action of the submit button, gets the token from the user object, and calls the
+   * editProfile function with the new first and last name, and the token. It then sets the editName
+   * state to false, which closes the edit name form
+   * @param {React.FormEvent&lt;HTMLFormElement>} e
+   */
+  function editNameSubmit(e) {
+    e.preventDefault();
+    const token = user.token;
+    editProfile(store, newFirstName, newLastName, token);
+    setEditName(false);
+  }
+
+  /**
+   * If the editName state is true, then return the editName form, otherwise return the welcome back
+   * header
+   * @returns A form that allows the user to edit their first and last name.
+   * @param {boolean} editName
+   */
+  function editNameForm(editName) {
+    return editName ? (
+      &lt;div className="header editName-header">
+        &lt;h1>Welcome back&lt;/h1>
+        &lt;form onSubmit={(e) => editNameSubmit(e)} className="editName-form">
+          &lt;div className="editName-input-container">
+            &lt;div className="editName-wrapper">
+              &lt;label htmlFor="newFirstName" className="editName-label">
+                New firstname:{" "}
+              &lt;/label>
+              &lt;input
+                type="text"
+                id="newFirstName"
+                className="editName-input"
+                // value={newFirstName}
+                placeholder={user.data.firstName}
+                onChange={(e) => setNewFirstName(e.target.value)}
+              />
+            &lt;/div>
+
+            &lt;div className="editName-wrapper">
+              &lt;label htmlFor="newLastName" className="editName-label">
+                New lastname:{" "}
+              &lt;/label>
+              &lt;input
+                type="text"
+                id="newLastName"
+                className="editName-input"
+                // value={newLastName}
+                placeholder={user.data.lastName}
+                onChange={(e) => setNewLastName(e.target.value)}
+              />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="editName-buttons-container">
+            &lt;button type="submit" className="editName-button">
+              Save
+            &lt;/button>
+            &lt;button
+              type="button"
+              className="editName-button"
+              onClick={() => setEditName(false)}
+            >
+              Cancel
+            &lt;/button>
+          &lt;/div>
+        &lt;/form>
+      &lt;/div>
+    ) : (
+      &lt;div className="header">
+        &lt;h1>
+          Welcome back
+          &lt;br />
+          {`${user.data.firstName} ${user.data.lastName}`}!
+        &lt;/h1>
+        &lt;button className="edit-button" onClick={() => setEditName(!editName)}>
+          Edit Name
+        &lt;/button>
+      &lt;/div>
+    );
+  }
+
+  if (user.dataStatus === "pending" || user.tokenStatus === "pending") {
+    return &lt;Loader />;
+  }
+
+  return user.data ? (
+    &lt;main className="main bg-dark">
+      {editNameForm(editName)}
+      &lt;h2 className="sr-only">Accounts&lt;/h2>
+      &lt;section className="account">
+        &lt;div className="account-content-wrapper">
+          &lt;h3 className="account-title">Argent Bank Checking (x8349)&lt;/h3>
+          &lt;p className="account-amount">$2,082.79&lt;/p>
+          &lt;p className="account-amount-description">Available Balance&lt;/p>
+        &lt;/div>
+        &lt;div className="account-content-wrapper cta">
+          &lt;button className="transaction-button">View transactions&lt;/button>
+        &lt;/div>
+      &lt;/section>
+      &lt;section className="account">
+        &lt;div className="account-content-wrapper">
+          &lt;h3 className="account-title">Argent Bank Savings (x6712)&lt;/h3>
+          &lt;p className="account-amount">$10,928.42&lt;/p>
+          &lt;p className="account-amount-description">Available Balance&lt;/p>
+        &lt;/div>
+        &lt;div className="account-content-wrapper cta">
+          &lt;button className="transaction-button">View transactions&lt;/button>
+        &lt;/div>
+      &lt;/section>
+      &lt;section className="account">
+        &lt;div className="account-content-wrapper">
+          &lt;h3 className="account-title">Argent Bank Credit Card (x8349)&lt;/h3>
+          &lt;p className="account-amount">$184.30&lt;/p>
+          &lt;p className="account-amount-description">Current Balance&lt;/p>
+        &lt;/div>
+        &lt;div className="account-content-wrapper cta">
+          &lt;button className="transaction-button">View transactions&lt;/button>
+        &lt;/div>
+      &lt;/section>
+    &lt;/main>
+  ) : (
+    &lt;div className="linkForSignInContainer">
+      &lt;h2>You must be authenticated...&lt;/h2>
+      &lt;Link to="/login" className="linkToSignIn">
+        Sign In
+      &lt;/Link>
+    &lt;/div>
+  );
+}
+
+export default Profile;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#:dataReducer">:  dataReducer</a></li><li><a href="global.html#checkStorageToken">checkStorageToken</a></li><li><a href="global.html#editProfile">editProfile</a></li><li><a href="global.html#fetchOrUpdateData">fetchOrUpdateData</a></li><li><a href="global.html#fetchOrUpdateToken">fetchOrUpdateToken</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#rememberMe">rememberMe</a></li><li><a href="global.html#selectUser">selectUser</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#userDataFetching">userDataFetching</a></li><li><a href="global.html#userDataRejected">userDataRejected</a></li><li><a href="global.html#userDataResolved">userDataResolved</a></li><li><a href="global.html#userEditProfile">userEditProfile</a></li><li><a href="global.html#userLogout">userLogout</a></li><li><a href="global.html#userRememberMe">userRememberMe</a></li><li><a href="global.html#userTokenFetching">userTokenFetching</a></li><li><a href="global.html#userTokenRejected">userTokenRejected</a></li><li><a href="global.html#userTokenResolved">userTokenResolved</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon May 09 2022 10:04:30 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
