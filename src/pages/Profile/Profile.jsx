@@ -32,9 +32,8 @@ function Profile() {
    * If the editName state is true, then return the editName form, otherwise return the welcome back
    * header
    * @returns A form that allows the user to edit their first and last name.
-   * @param {boolean} editName
    */
-  function editNameForm(editName) {
+  function editNameForm() {
     return editName ? (
       <div className="header editName-header">
         <h1>Welcome back</h1>
@@ -102,7 +101,7 @@ function Profile() {
 
   return user.data ? (
     <main className="main bg-dark">
-      {editNameForm(editName)}
+      {editNameForm()}
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">
