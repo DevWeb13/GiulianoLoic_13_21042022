@@ -135,7 +135,7 @@ export default function userReducer(state = initialState, action) {
           draft.tokenStatus === "updating"
         ) {
           draft.tokenStatus = "rejected";
-          draft.tokenError = action.payload;
+          draft.tokenError = action.payload.message;
           draft.token = null;
           return;
         }
@@ -168,7 +168,7 @@ export default function userReducer(state = initialState, action) {
       case DATAREJECTED: {
         if (draft.dataStatus === "pending" || draft.dataStatus === "updating") {
           draft.dataStatus = "rejected";
-          draft.dataError = action.payload;
+          draft.dataError = action.payload.message;
           draft.data = null;
           return;
         }

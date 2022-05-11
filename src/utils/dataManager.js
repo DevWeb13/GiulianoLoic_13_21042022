@@ -47,6 +47,7 @@ export async function fetchOrUpdateToken(store, email, password) {
     }
     return res.body.token;
   } catch (error) {
+    console.log(typeof error);
     store.dispatch(userTokenRejected(error));
     return null;
   }
