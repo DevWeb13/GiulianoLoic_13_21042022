@@ -5,6 +5,10 @@ import { selectUser } from "../../utils/selectors";
 import Loader from "../../components/Loader/Loader";
 import { editProfile } from "../../utils/dataManager";
 
+/**
+ * If the user is authenticated, then return the profile page, otherwise return a link to the login
+ * page
+ */
 function Profile() {
   const [newFirstName, setNewFirstName] = useState("");
   const [newLastName, setNewLastName] = useState("");
