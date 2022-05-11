@@ -9,37 +9,38 @@ basePath: /api/v1
 schemes:
   - http
 paths:
-  /account/accountId/transactions:
-    post:
+  /accounts/accountId/transactionsMonth:
+    get:
       security:
         - Bearer: []
       tags:
-        - User Module
-      summary: User transactions API
-      description: API for fetching a user transactions
+        - Transactions
+      summary: User month transactions API
+      description: API for fetching a user month transactions
       parameters:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
           required: true
           type: string
+        
       produces:
         - application/json
       responses:
         '200':
           description: User transactions retrieved successully
           schema:
-            $ref: '#/definitions/TransactionsResponse'
+            $ref: '#/definitions/transactionsMonthResponse'
         '400':
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /account/accountId/transactions/transactionId:
-    post:
+  /accounts/accountId/transactionsMonth/transactionId:
+    get:
       security:
         - Bearer: []
       tags:
-        - User Module
+        - Transactions
       summary: User transaction details API
       description: API for fetching a user transaction details
       parameters:
@@ -54,7 +55,7 @@ paths:
         '200':
           description: User transaction details retrieved successully
           schema:
-            $ref: '#/definitions/TransactionDetails'
+            $ref: '#/definitions/transactionDetailsResponse'
         '400':
           description: Invalid Fields
         '500':
@@ -63,7 +64,7 @@ paths:
       security:
         - Bearer: []
       tags:
-        - User Module
+        - Transactions
       summary: User transaction details API
       description: API for updating a transaction details
       parameters:
@@ -77,43 +78,28 @@ paths:
           description: Update transaction details attributes
           required: true
           schema:
-            $ref: '#/definitions/TransactionDetailsSettings'
+            $ref: '#/definitions/transactionDetailsSettings'
       produces:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile updated successully
           schema:
-            $ref: '#/definitions/TransactionDetailsSettingsResponse'
+            $ref: '#/definitions/transactionDetailsSettingsResponse'
         '400':
           description: Invalid Fields
         '500':
           description: Internal Server Error
+          
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
+    
 definitions:
-  TransactionDetails:
-    properties:
-      status:
-        type: integer
-      message:
-        type: string
-      body:
-        type: object
-        properties:
-          details:
-            type: object
-            properties:
-              transaction-type:
-                type: string
-              category:
-                type: string
-              notes:
-                type: string
-  TransactionsResponse:
+
+  transactionsMonthResponse:
     type: object
     properties:
       status:
@@ -126,28 +112,44 @@ definitions:
           transactions:
             type: array
             items: 
-              $ref: '#/definitions/TransactionsResponseDetails'
+              $ref: '#/definitions/TransactionsMonthResponseProperty'
               
-              
-  TransactionsResponseDetails:
+  transactionDetailsResponse:
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          transaction-type:
+            type: string
+          category:
+            type: string
+          notes:
+            type: string
+  
+  TransactionsMonthResponseProperty:
     type: object
     properties:
       date:
         type: string
-      decription:
+      description:
         type: string
       amount:
         type: number
       balance:
         type: number
       
-  TransactionDetailsSettings:
+  transactionDetailsSettings:
     properties:
       category:
         type: string
       notes:
         type: string
-  TransactionDetailsSettingsResponse:
+        
+  transactionDetailsSettingsResponse:
     properties:
       status:
         type: integer
