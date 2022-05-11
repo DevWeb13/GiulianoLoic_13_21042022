@@ -114,6 +114,7 @@ definitions:
               notes:
                 type: string
   TransactionsResponse:
+    type: object
     properties:
       status:
         type: integer
@@ -123,7 +124,23 @@ definitions:
         type: object
         properties:
           transactions:
-            type: object
+            type: array
+            items: 
+              $ref: '#/definitions/TransactionsResponseDetails'
+              
+              
+  TransactionsResponseDetails:
+    type: object
+    properties:
+      date:
+        type: string
+      decription:
+        type: string
+      amount:
+        type: number
+      balance:
+        type: number
+      
   TransactionDetailsSettings:
     properties:
       category:
